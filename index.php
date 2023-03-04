@@ -11,9 +11,13 @@
 
 <body>
     <div class="container">
-        <div class="row"></div>
+        <div class="row mb-5"></div>
         <div class="row">
-            <div class="col"></div>
+            <div class="col">
+                <div class="col">
+                    <h1>Ubuntu Alliance Conference Registration form</h1>
+                </div>
+            </div>
             <div class="col">
                 <?php require "./registration-form.php" ?>
             </div>
