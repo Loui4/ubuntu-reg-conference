@@ -9,6 +9,24 @@
     <title>Ubuntu Conference Registration</title>
 </head>
 
+<?php
+require_once "./init-database.php";
+
+$serverName = "127.0.0.1";
+$username = "root";
+$password = "root";
+$databaseName = "ubuntu";
+
+// Create connection
+$conn = new mysqli($serverName, $username, $password, $databaseName);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+    var_dump(mysqli_connect_error());
+}
+?>
+
 <body>
     <div class="container">
         <div class="row mb-5"></div>

@@ -1,15 +1,21 @@
-<form>
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+}
+?>
+
+<form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="John">
+        <input type="text" class="form-control" name="firstName" id="floatingInput" placeholder="John">
         <label for="floatingInput">First Name</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Doe">
+        <input type="text" name="lastName" class="form-control" id="floatingInput" placeholder="Doe">
         <label for="floatingInput">Last Name</label>
     </div>
 
     Gender
-    <div class="form-check ">
+    <div class="form-check">
         <input class="form-check-input" type="radio" name="gender" id="male">
         <label class="form-check-label" for="male">
             Male
@@ -23,17 +29,17 @@
     </div>
 
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="johndoe@gmail.com">
+        <input type="email" name="emailAddress" class="form-control" id="floatingInput" placeholder="johndoe@gmail.com">
         <label for="floatingInput">Email Address</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="ubuntu alliance">
+        <input type="text" name="company" class="form-control" id="floatingInput" placeholder="ubuntu alliance">
         <label for="floatingInput">Company</label>
     </div>
 
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="role">
+        <input type="text" name="position" class="form-control" id="floatingInput" placeholder="role">
         <label for="floatingInput">Position</label>
     </div>
 
