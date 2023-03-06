@@ -1,9 +1,9 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $serverName = "127.0.0.1";
-    $username = "root";
-    $password = "root";
+    $serverName = getenv("APP_SERVERNAME");
+    $username = getenv("APP_USERNAME");
+    $password = getenv("APP_PASSWORD");
     $databaseName = 'ubuntu';
 
 

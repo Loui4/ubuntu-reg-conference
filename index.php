@@ -10,7 +10,7 @@
 </head>
 
 <?php
-require_once "./init-database.php";
+// require_once "./init-database.php";
 ?>
 
 <body>
