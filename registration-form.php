@@ -1,6 +1,40 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $serverName = "127.0.0.1";
+    $username = "root";
+    $password = "root";
+    $databaseName = 'ubuntu';
+
+
+    // Create connection
+    $conn = new mysqli($serverName, $username, $password, $databaseName);
+
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+        var_dump(mysqli_connect_error());
+    }
+
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    // $gender = $_POST['gender'];
+    $company = $_POST['company'];
+    $position = $_POST['position'];
+    $emailAddress = $_POST['emailAddress'];
+
+
+    $insertQuery = "INSERT INTO registrations (firstName, 
+    lastName, gender, emailAddress, company, position) VALUES 
+    (" . "'" . $firstName . "'," . "'" . $lastName . "'," . "'male'," . "'" . $company . "'," . "'" . $position . "'," . "'" . $emailAddress . "')";
+
+    if ($conn->query($insertQuery) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $insertQuery . "<br>" . $conn->error;
+    }
+
+    $conn->close();
 }
 ?>
 
