@@ -1,3 +1,4 @@
-export APP_SERVERNAME=127.0.0.1
+export APP_SERVERNAME=db
 export APP_PASSWORD=root
-export APP_USERNAME=ubuntu
+export APP_USERNAME=root
+export APP_DATABASENAME=ubuntu

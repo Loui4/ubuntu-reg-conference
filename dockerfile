@@ -1,10 +1,13 @@
 FROM php:7.4-cli
 
-COPY . /usr/src/app
+RUN docker-php-ext-install mysqli
 
-RUN php init-database.php
+WORKDIR /usr/src/app
 
-EXPOSE 80
+COPY . .
 
-CMD [ "php","-s","localhost:80" ]
+# RUN php init-database.php
 
+EXPOSE 8000
+
+CMD [ "php", "-S", "0.0.0.0:8000"]

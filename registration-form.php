@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $serverName = getenv("APP_SERVERNAME");
     $username = getenv("APP_USERNAME");
     $password = getenv("APP_PASSWORD");
-    $databaseName = 'ubuntu';
+    $databaseName = getenv("APP_DATABASENAME");
 
 
     // Create connection
