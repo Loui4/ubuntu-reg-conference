@@ -1,54 +1,37 @@
 ---
-- name: update apt packages
-  become: yes
-  apt:
-    update_cache: yes
-
-- name: upgrade packages
-  become: yes
-  apt:
-    upgrade: yes
-
-- name: Install required packages
+- name: Install Docker and Docker Compose
+  hosts: all
   become: true
-  apt:
-    name:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
-    state: present
-
-- name: Download and add Docker GPG key
-  become: true
-  command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-- name: Add Docker repository to APT sources
-  become: true
-  apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    state: present
-    filename: docker
-    update_cache: yes
-
-- name: Check Docker APT package policy
-  become: true
-  apt:
-    name: docker-ce
-    update_cache: yes
-    policy_only: yes
-
-- name: Install Docker CE
-  become: true
-  apt:
-    name: docker-ce
-    state: present
-
-- name: Install Docker Compose
-  become: true
-  command: >
-    curl -L "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_machine_arch }}" \
-    -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
   vars:
     docker_compose_version: 1.29.2
+  tasks:
+    - name: Install packages required for Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker APT repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+        state: present
+
+    - name: Install Docker CE
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Install Docker Compose
+      shell: >
+        curl -L "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_machine_arch }}" \
+        -o /usr/local/bin/docker-compose && \
+        chmod +x /usr/local/bin/docker-compose
