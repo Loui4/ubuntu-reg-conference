@@ -24,4 +24,6 @@
     cd ~/ubuntu-conference-app
     tar -xvzf artifact.tar.gz
     ls
-    docker-compose up -d
+    source env.sh
+    docker-compose down
+    docker-compose up --build -d
