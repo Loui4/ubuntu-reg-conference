@@ -17,11 +17,8 @@ jobs:
       - run:
           name: compress files and move folder
           command: |
-            pwd
-            ls
             tar -C ./src -czvf artifact.tar.gz .
-            touch ./circleci/ansible/roles/setup_app/files/artifact.tar.gz
-            mv artifact.tar.gz ./circleci/ansible/roles/setup_app/files/artifact.tar.gz
+            mv artifact.tar.gz .circleci/ansible/roles/setup_app/files/artifact.tar.gz
       - run:
           name: run ansible playbook
           command: |
