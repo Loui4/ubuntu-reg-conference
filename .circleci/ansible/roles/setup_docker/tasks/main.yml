@@ -1,6 +1,5 @@
 ---
 - name: Install Docker and Docker Compose
-  hosts: all
   become: true
   vars:
     docker_compose_version: 1.29.2
