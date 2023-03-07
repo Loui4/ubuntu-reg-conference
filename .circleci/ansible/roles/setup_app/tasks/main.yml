@@ -19,12 +19,9 @@
     - tar
     - gzip
 
-- name: extract app
+- name: extract and run app
   shell: |
     cd ~/ubuntu-conference-app
     tar -xvzf artifact.tar.gz
-    cd src
-
-- name: run the app
-  shell: |
-    docker-compose up -d
+    ls
+    docker-compose up
