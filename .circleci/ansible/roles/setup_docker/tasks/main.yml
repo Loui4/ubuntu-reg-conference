@@ -28,7 +28,7 @@
 
 - name: Download Docker GPG key
   become: yes
-  shell: |
+  shell: yes |
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 - name: Add Docker repository to apt sources
