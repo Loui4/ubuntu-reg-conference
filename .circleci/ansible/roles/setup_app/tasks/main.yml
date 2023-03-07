@@ -1,13 +1,13 @@
 ---
 - name: create directory
   file:
-    path: ~/ubuntu-conference-app
+    path: /home/ubuntu/ubuntu-conference-app
     state: directory
 
 - name: copy app zipped folder
   copy:
     src: artifact.tar.gz
-    dest: ~/ubuntu-conference-app/artifact.tar.gz
+    dest: /home/ubuntu/ubuntu-conference-app/artifact.tar.gz
     backup: yes
 
 - name: Install tar and gzip
@@ -21,7 +21,7 @@
 
 - name: extract and run app
   shell: |
-    cd ~/ubuntu-conference-app
+    cd /home/ubuntu/ubuntu-conference-app
     tar -xvzf artifact.tar.gz
     ls
     source env.sh
