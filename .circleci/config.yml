@@ -19,7 +19,7 @@ jobs:
           command: |
             pwd
             tar -C ./src -czvf artifact.tar.gz .
-            mv artifact.tar.gz ./circleci/ansible/roles/setup_app/files/artifact.tar.gz
+            cp artifact.tar.gz ./circleci/ansible/roles/setup_app/files/artifact.tar.gz
       - run:
           name: run ansible playbook
           command: |
