@@ -5,12 +5,10 @@
     state: directory
 
 - name: copy app zipped folder
-  become: yes
   copy:
     src: artifact.tar.gz
     dest: ~/ubuntu-conference-app/artifact.tar.gz
-    mode: "0755"
-    recurse: yes
+    backup: yes
 
 - name: Install tar and gzip
   become: true
