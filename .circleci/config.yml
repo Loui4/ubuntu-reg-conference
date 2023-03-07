@@ -1,3 +1,19 @@
 version: 2.1
+
 jobs:
-  # configure_nginx:
+  configure-server:
+    docker: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - run:
+          name: install ansible
+          command: |
+            apk add --update ansible
+      - run:
+          name: run ansible playbook
+          command: |
+            ansible-playbook -i inventory.txt main.yml
+workflows:
+  default:
+    jobs:
+      - configure-server
