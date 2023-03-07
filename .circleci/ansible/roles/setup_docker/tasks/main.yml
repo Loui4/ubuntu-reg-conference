@@ -14,23 +14,23 @@
           - lsb-release
         state: present
 
-    - name: Add Docker GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
-    - name: Add Docker APT repository
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
-        state: present
+- name: Add Docker APT repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+    state: present
 
-    - name: Install Docker CE
-      apt:
-        name: docker-ce
-        state: present
+- name: Install Docker CE
+  apt:
+    name: docker-ce
+    state: present
 
-    - name: Install Docker Compose
-      shell: >
-        curl -L "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_machine_arch }}" \
-        -o /usr/local/bin/docker-compose && \
-        chmod +x /usr/local/bin/docker-compose
+- name: Install Docker Compose
+  shell: >
+    curl -L "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_machine_arch }}" \
+    -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
