@@ -4,13 +4,22 @@
     path: ~/ubuntu-conference-app
     state: directory
 
-- name: copy app folder
+- name: copy app zipped folder
   become: yes
   copy:
-    src: /ubuntu-reg-conference
-    dest: ~/ubuntu-conference-app
+    src: artifact.tar.gz
+    dest: ~/ubuntu-conference-app/artifact.tar.gz
     mode: "0755"
     recurse: yes
+
+- name: Install tar and gzip
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - tar
+    - gzip
 
 - name: change working directory
   shell: |
