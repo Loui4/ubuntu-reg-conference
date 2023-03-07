@@ -6,7 +6,7 @@
   become_method: sudo
   become_user: root
   roles:
-    - setup_docker
+    # - setup_docker
     - setup_app
     # - setup_nginx
     # - setup_prometheus
