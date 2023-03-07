@@ -23,7 +23,6 @@
   shell: |
     cd ~/ubuntu-conference-app
     tar -xvzf artifact.tar.gz
-    cd artifact
 
 - name: run the app
   shell: |
