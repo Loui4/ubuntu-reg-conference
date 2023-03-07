@@ -16,6 +16,7 @@ jobs:
       - run:
           name: run ansible playbook
           command: |
+            cd .circleci/ansible
             ansible-playbook -i inventory.txt main.yml
 workflows:
   default:
