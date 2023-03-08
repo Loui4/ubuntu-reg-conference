@@ -4,3 +4,21 @@
   apt:
     name: nginx
     state: present
+
+- name: copy cert
+  copy:
+    src: certi.crt
+    dest: /etc/ssl/cert.crt
+    backup: yes
+
+- name: copy key
+  copy:
+    src: certi.key
+    dest: /etc/ssl/certi.key
+    backup: yes
+
+- name: copy nginx confi
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    backup: yes
