@@ -1,33 +1,48 @@
 ---
-- name: create user group
-  become: true
-  group:
-    name: "prometheus"
-    state: present
-
-- name: create user and add to group
+- name: create service users
   become: true
   shell: |
-    useradd -s /sbin/nologin --system -g prometheus prometheus
+    useradd --no-create-home --shell /bin/false prometheus
+    useradd --no-create-home --shell /bin/false node_exporter
 
-- name: create prometheus directory
+- name: create prometheus directories and set ownership
   become: true
-  file:
-    path: /var/lib/prometheus
-    state: directory
+  shell: |
+    mkdir /etc/prometheus
+    mkdir /var/lib/prometheus
+    chown prometheus:prometheus /etc/prometheus
+    chown prometheus:prometheus /var/lib/prometheus
 
 - name: download prometheus
   become: true
   shell: |
-    mkdir -p /tmp/prometheus
-    cd /tmp/prometheus
-    curl -s https://api.github.com/repos/prometheus/prometheus/releases/latest
-    tar xvf prometheus*.tar.gz
-    cd /tmp/prometheus/prometheus-2.38.0.linux-amd64
-    mv prometheus promtool /usr/local/bin/
+    cd ~
+    curl -LO https://github.com/prometheus/prometheus/releases/download/v2.0.0/prometheus-2.0.0.linux-amd64.tar.gz
+    sha256sum prometheus-2.0.0.linux-amd64.tar.gz
 
-- name: setting up prometheus
+- name: unpack prometheus and copy files to usr/local/bin
   become: true
   shell: |
-    mv prometheus.yml /etc/prometheus/prometheus.yml
-    mv consoles/ console_libraries/ /etc/prometheus/
+    tar xvf prometheus-2.0.0.linux-amd64.tar.gz
+    cp prometheus-2.0.0.linux-amd64/prometheus /usr/local/bin/
+    cp prometheus-2.0.0.linux-amd64/promtool /usr/local/bin/
+
+- name: set ownership of the usr/local/bin directory
+  become: true
+  shell: |
+    chown prometheus:prometheus /usr/local/bin/prometheus
+    chown prometheus:prometheus /usr/local/bin/promtool
+    chown -R prometheus:prometheus /etc/prometheus/consoles
+    chown -R prometheus:prometheus /etc/prometheus/console_libraries
+
+- name: copy prometheus yml
+  become: true
+  copy:
+    src: prometheus.yaml
+    dest: /etc/prometheus/prometheus.yml
+    backup: yes
+
+- name: change ownership of prometheus
+  become: true
+  shell: |
+    chown prometheus:prometheus /etc/prometheus/prometheus.yml
