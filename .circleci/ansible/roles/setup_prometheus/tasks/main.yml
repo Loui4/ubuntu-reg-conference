@@ -1,0 +1,33 @@
+---
+- name: create user group
+  become: true
+  group:
+    name: "prometheus"
+    state: present
+
+- name: create user and add to group
+  become: true
+  shell: |
+    useradd -s /sbin/nologin --system -g prometheus prometheus
+
+- name: create prometheus directory
+  become: true
+  file:
+    path: /var/lib/prometheus
+    state: directory
+
+- name: download prometheus
+  become: true
+  shell: |
+    mkdir -p /tmp/prometheus
+    cd /tmp/prometheus
+    curl -s https://api.github.com/repos/prometheus/prometheus/releases/latest
+    tar xvf prometheus*.tar.gz
+    cd /tmp/prometheus/prometheus-2.38.0.linux-amd64
+    mv prometheus promtool /usr/local/bin/
+
+- name: setting up prometheus
+  become: true
+  shell: |
+    mv prometheus.yml /etc/prometheus/prometheus.yml
+    mv consoles/ console_libraries/ /etc/prometheus/
