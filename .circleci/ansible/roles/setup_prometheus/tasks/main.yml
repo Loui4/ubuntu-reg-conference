@@ -46,3 +46,15 @@
   become: true
   shell: |
     chown prometheus:prometheus /etc/prometheus/prometheus.yml
+
+- name: copy prometheus service config
+  become: true
+  copy:
+    src: prometheus.service
+    dest: /etc/systemd/system/prometheus.service
+    backup: yes
+- name: start prometheus
+  become: true
+  shell: |
+    systemctl daemon-reload
+    systemctl start prometheus
