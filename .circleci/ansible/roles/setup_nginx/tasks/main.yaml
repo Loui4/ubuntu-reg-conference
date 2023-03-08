@@ -8,7 +8,7 @@
 - name: copy cert
   copy:
     src: certi.crt
-    dest: /etc/ssl/cert.crt
+    dest: /etc/ssl/certi.crt
     backup: yes
 
 - name: copy key
