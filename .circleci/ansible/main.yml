@@ -8,5 +8,5 @@
   roles:
     # - setup_docker
     - setup_app
-    # - setup_nginx
+    - setup_nginx
     # - setup_prometheus
