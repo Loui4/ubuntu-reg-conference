@@ -22,3 +22,8 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
     backup: yes
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
